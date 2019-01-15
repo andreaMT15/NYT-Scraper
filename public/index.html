@@ -9,18 +9,27 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     />
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
   </head>
   <body>
+    <div class="header">
+      <header><H2> NYT Scraper</H2></header>
+    </div>
     <div class="container">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid">
+          <img src="assets/images/app-browser-coffee-6335.jpg" id="top-image" />
+        </div>
+      </div>
+
+      <div class="container-fluid" id="articles"></div>
       <div class="buttons">
         <button type="button" class="btn btn-outline-info" id="article-btn">
-          View articles
+          Scrape New Articles
         </button>
-        <div id="articles"></div>
       </div>
     </div>
-
+  </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
