@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
+    <title>NYT Mongo Scraper</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -15,21 +15,22 @@
     <div class="header">
       <header><H2> NYT Scraper</H2></header>
     </div>
-    <div class="container">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container-fluid">
-          <img src="assets/images/app-browser-coffee-6335.jpg" id="top-image" />
-        </div>
-      </div>
+    <br />
+    <div class="buttons">
+      <button type="button" class="btn btn-outline-info" id="article-btn">
+        Scrape New Articles
+      </button>
+    </div>
+    <br />
+    <div>
+      <div
+        class="jumbotron jumbotron-fluid"
+        style="background-image: url('assets/images/app-browser-coffee-6335.jpg')"
+      ></div>
 
       <div class="container-fluid" id="articles"></div>
-      <div class="buttons">
-        <button type="button" class="btn btn-outline-info" id="article-btn">
-          Scrape New Articles
-        </button>
-      </div>
     </div>
-  </div>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

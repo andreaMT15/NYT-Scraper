@@ -1,5 +1,5 @@
 function getArticles() {
-  $("#articles").empty();
+  // $("#articles").empty();
   $.getJSON("/articles", function(data) {
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
@@ -7,15 +7,14 @@ function getArticles() {
         "<div class='article-block'>" +
           "<p>" +
           "<H4>" +
-          data[i].headline +
-          "</H4 >" +
-          data[i].description +
-          "<br>" +
-          "<a href='" +
+          "<a href='https://www.nytimes.com" +
           data[i].link +
           "'>" +
-          data[i].link +
+          data[i].headline +
+          "</H4 >" +
           "</a>" +
+          data[i].description +
+          "<br>" +
           "</p>" +
           "</div>"
       );
@@ -25,10 +24,10 @@ function getArticles() {
 getArticles();
 
 $("#article-btn").on("click", function() {
-  $.get("/scrape"),
-    function() {
-      getArticles();
-    };
+  console.log("about to hit ajax call fro scrape!!");
+  $.get("/scrape").then(function() {
+    location.reload(true);
+  });
 });
 
 // Whenever someone clicks a p tag
