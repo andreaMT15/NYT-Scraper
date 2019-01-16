@@ -1,30 +1,47 @@
 function getArticles() {
-  // $("#articles").empty();
+  $("#article-container").empty();
   $.getJSON("/articles", function(data) {
+    // console.log(data.length);
+
     for (var i = 0; i < data.length; i++) {
-      $("#article-container").append(
-        "<div class='card' 'data-id" + data[i]._id + "'>" + "</div>"
-      );
-      $(".card").html(
-        "<div class= 'card-header'>" +
-          "<a href='https://www.nytimes.com" +
-          data[i].link +
-          "'>" +
-          data[i].headline +
-          "</a>" +
-          " " +
-          "<a href='#' class='btn btn-dark save-btn'>Save Article </a></div>" +
-          "<div class='card-body'>" +
-          "<p class='card-text'>" +
-          data[i].description +
-          "</p> </div>"
-      );
+      // var $div = $("<div class='card'>");
+      // $div.attr("data-id", data[i]._id);
+      // console.log(data);
+      // // $(".card").empty();
+      // var divData = $("<div>");
+      // divData.append("data[i].headline" + i);
+
+      // $(".card").html(`<div>${i}</div>`);
+
+      // $(`.card`).html(
+      //   "<div class= 'card-header'>" +
+      //     "<a href='https://www.nytimes.com" +
+      //     data[i].link +
+      //     "'>" +
+      //     data[i].headline +
+      //     "</a>" +
+      //     " " +
+      //     "<a href='#' class='btn btn-dark save-btn'>Save Article </a></div>" +
+      //     "<div class='card-body'>" +
+      //     "<p class='card-text'>" +
+      //     data[i].description +
+      //     "</p> </div>"
+      // );
+
+      $("#article-container").append(`<div class="card">
+        <div class="card-header">
+        <a href="https://www.nytimes.com${data[i].link}">${data[i].headline}</a>
+        <a href='#' class="btn btn-dark save-btn">Save Article </a>
+        </div>
+        <div class="card-body">
+        <p class="card-text">${data[i].description}</p>
+        </div> `);
     }
   });
 }
 getArticles();
 
-$("#article-btn").on("click", function() {
+$("#scrape-btn").on("click", function() {
   console.log("about to hit ajax call for scrape!!");
   $.get("/scrape").then(function() {
     location.reload(true);
@@ -34,6 +51,7 @@ $("#article-btn").on("click", function() {
 $(document).on("click", ".comment-btn", function() {
   $.post();
 });
+
 // Whenever someone clicks a p tag
 // $(document).on("click", "p", function() {
 //   // Empty the notes from the note section
