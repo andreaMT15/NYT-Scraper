@@ -1,0 +1,12 @@
+.article-block {
+  background-color: lightskyblue;
+}
+
+#scrape-btn,
+#clear-btn {
+  margin: 1rem;
+}
+
+.jumbotron {
+  height: 30rem;
+}

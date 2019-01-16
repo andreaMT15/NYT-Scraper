@@ -2,21 +2,20 @@ function getArticles() {
   // $("#articles").empty();
   $.getJSON("/articles", function(data) {
     for (var i = 0; i < data.length; i++) {
-      // Display the apropos information on the page
-      $("#articles").append(
-        "<div class='article-block'>" +
-          "<p>" +
-          "<H4>" +
+      $("#article-container").append('<div class="card"></div>');
+      $(".card").append(
+        "<div class='card-body'>" +
+          "<H5 class='card-title'>" +
           "<a href='https://www.nytimes.com" +
           data[i].link +
           "'>" +
           data[i].headline +
-          "</H4 >" +
+          "</H5 >" +
           "</a>" +
+          "<p class='card-text'>" +
           data[i].description +
-          "<br>" +
           "</p>" +
-          "</div>"
+          "<a href='#' class='btn btn-primary'>Save Article </a></div>"
       );
     }
   });
@@ -24,12 +23,15 @@ function getArticles() {
 getArticles();
 
 $("#article-btn").on("click", function() {
-  console.log("about to hit ajax call fro scrape!!");
+  console.log("about to hit ajax call for scrape!!");
   $.get("/scrape").then(function() {
     location.reload(true);
   });
 });
 
+$(document).on("click", ".comment-btn", function() {
+  $.post();
+});
 // Whenever someone clicks a p tag
 // $(document).on("click", "p", function() {
 //   // Empty the notes from the note section

@@ -9,33 +9,61 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./assets/css/style.css"
+    />
   </head>
   <body>
-    <div class="header">
-      <header><H2> NYT Scraper</H2></header>
-    </div>
-    <br />
-    <div class="buttons">
-      <button type="button" class="btn btn-outline-info" id="article-btn">
-        Scrape New Articles
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">NYT Scraper</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
-    </div>
-    <br />
-    <div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Saved Articles</a>
+          </li>
+        </ul>
+        <form class="form-inline">
+          <button type="button" class="btn btn-dark" id="scrape-btn">
+            Scrape New Articles
+          </button>
+          <button type="button" class="btn btn-dark" id="clear-btn">
+            Clear Articles
+          </button>
+        </form>
+      </div>
+    </nav>
+    <div class="wrapper">
       <div
         class="jumbotron jumbotron-fluid"
         style="background-image: url('assets/images/app-browser-coffee-6335.jpg')"
       ></div>
 
-      <div class="container-fluid" id="articles"></div>
+      <div class="container-fluid" id="article-container"></div>
     </div>
-
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"
     ></script>
-    <script src="articles.js"></script>
+    <script src="./assets/js/articles.js"></script>
   </body>
 </html>
