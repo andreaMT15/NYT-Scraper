@@ -3,7 +3,7 @@ function getArticles() {
   $.getJSON("/articles", function(data) {
     for (var i = 0; i < data.length; i++) {
       $("#article-container").append('<div class="card"></div>');
-      $(".card").append(
+      $(".card").html(
         "<div class='card-body'>" +
           "<H5 class='card-title'>" +
           "<a href='https://www.nytimes.com" +
