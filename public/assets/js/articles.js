@@ -2,20 +2,22 @@ function getArticles() {
   // $("#articles").empty();
   $.getJSON("/articles", function(data) {
     for (var i = 0; i < data.length; i++) {
-      $("#article-container").append('<div class="card"></div>');
+      $("#article-container").append(
+        "<div class='card' 'data-id" + data[i]._id + "'>" + "</div>"
+      );
       $(".card").html(
-        "<div class='card-body'>" +
-          "<H5 class='card-title'>" +
+        "<div class= 'card-header'>" +
           "<a href='https://www.nytimes.com" +
           data[i].link +
           "'>" +
           data[i].headline +
-          "</H5 >" +
           "</a>" +
+          " " +
+          "<a href='#' class='btn btn-dark save-btn'>Save Article </a></div>" +
+          "<div class='card-body'>" +
           "<p class='card-text'>" +
           data[i].description +
-          "</p>" +
-          "<a href='#' class='btn btn-primary'>Save Article </a></div>"
+          "</p> </div>"
       );
     }
   });
