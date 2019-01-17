@@ -18,27 +18,26 @@ module.exports = function(app) {
       });
   });
 
-  app.post("/articles/:id", function(req, res) {
-    // Create a new Note in the db
-    db.Note.create(req.body)
-      .then(function(dbNote) {
-        // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
-        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-        return db.Article.findOneAndUpdate(
-          { _id: req.params.id },
-          { $push: { notes: dbNote._id } },
-          { new: true }
-        );
-      })
-      .then(function(dbArticle) {
-        // If the User was updated successfully, send it back to the client
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurs, send it back to the client
+  app.post("/saved", function(req, res) {
+    var result = {};
+    result.id = req.body._id;
+    result.headline = req.body.headline;
+    result.description = req.body.description;
+    result.link = req.body.link;
+    // Save these results in an object that we'll push into the results array we defined earlier
+    var entry = new Saved(result);
+    // Now, save that entry to the db
+    entry.saved(function(err, result) {
+      // Log any errors
+      if (err) {
+        console.log(err);
         res.json(err);
-      });
+      }
+      // Or log the doc
+      else {
+        res.json(result);
+      }
+    });
   });
 
   app.get("/scrape", function(req, res) {
