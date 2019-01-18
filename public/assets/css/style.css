@@ -10,3 +10,23 @@
 .jumbotron {
   height: 30rem;
 }
+
+#saved-container {
+  width: 48rem;
+  margin: 0.5rem;
+}
+
+.notes {
+  width: 48rem;
+  position: absolute;
+  left: 48.5rem;
+  top: 37.5rem;
+}
+
+#comment-input {
+  width: 40rem;
+}
+
+#click-card {
+  text-align: center;
+}
