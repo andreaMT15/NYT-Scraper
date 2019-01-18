@@ -3,20 +3,20 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 module.exports = function(app) {
   // Route for grabbing a specific Article by id, populate it with it's note
-  app.get("/articles/:id", function(req, res) {
-    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    db.Article.findOne({ _id: req.params.id })
-      // ..and populate all of the notes associated with it
-      .populate("note")
-      .then(function(dbArticle) {
-        // If we were able to successfully find an Article with the given id, send it back to the client
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
-  });
+  // app.get("/articles/:id", function(req, res) {
+  //   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  //   db.Article.findOne({ _id: req.params.id })
+  //     // ..and populate all of the notes associated with it
+  //     .populate("note")
+  //     .then(function(dbArticle) {
+  //       // If we were able to successfully find an Article with the given id, send it back to the client
+  //       res.json(dbArticle);
+  //     })
+  //     .catch(function(err) {
+  //       // If an error occurred, send it to the client
+  //       res.json(err);
+  //     });
+  // });
 
   app.post("/saved", function(req, res) {
     var result = {};
@@ -24,20 +24,48 @@ module.exports = function(app) {
     result.headline = req.body.headline;
     result.description = req.body.description;
     result.link = req.body.link;
-    // Save these results in an object that we'll push into the results array we defined earlier
-    var entry = new Saved(result);
-    // Now, save that entry to the db
-    entry.saved(function(err, result) {
-      // Log any errors
-      if (err) {
-        console.log(err);
-        res.json(err);
-      }
-      // Or log the doc
-      else {
-        res.json(result);
-      }
+
+    console.log("we hit the route!! /route", req.body);
+    db.Article.findByIdAndUpdate(req.body.id, { saved: true }, function(
+      err,
+      thingSaved
+    ) {
+      console.log("this is what we got back after update", thingSaved);
+      res.json(thingSaved);
     });
+
+    // Save these results in an object that we'll push into the results array we defined earlier
+  });
+
+  app.post("/remove-save", function(req, res) {
+    var result = {};
+    result.id = req.body._id;
+    result.headline = req.body.headline;
+    result.description = req.body.description;
+    result.link = req.body.link;
+
+    console.log("we hit the route!! /route", req.body);
+    db.Article.findByIdAndUpdate(req.body.id, { saved: false }, function(
+      err,
+      thingSaved
+    ) {
+      console.log("this is what we got back after update", thingSaved);
+      res.json(thingSaved);
+    });
+
+    // Save these results in an object that we'll push into the results array we defined earlier
+  });
+
+  app.get("/saved-articles", function(req, res) {
+    db.Article.find({ saved: true })
+      .then(function(dbArticle) {
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
   });
 
   app.get("/scrape", function(req, res) {
