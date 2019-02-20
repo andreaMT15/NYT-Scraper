@@ -4,13 +4,13 @@ $(document).ready(function() {
 });
 
 function getArticles() {
-  $("#article-container").empty();
   $.getJSON("/articles", function(data) {
+    $("#article-container").empty();
     for (var i = 0; i < data.length; i++) {
       $("#article-container").append(`<div class="card" data-id=${data[i]._id}>
         <div class="card-header">
         <a href="https://www.nytimes.com${data[i].link}">${data[i].headline}</a>
-        <button type="button" class="btn btn-dark save-btn">Save Article </button>
+        <button type="button" class="btn btn-light save-btn">Save Article </button>
         </div>
         <div class="card-body">
         <p class="card-text">${data[i].description}</p>
@@ -23,13 +23,15 @@ getArticles();
 function getSavedArticles() {
   $.getJSON("/saved-articles", function(data) {
     for (var i = 0; i < data.length; i++) {
-      $("#saved-container").append(`<div class="card" data-id=${data[i]._id}>
+      $("#saved-container").append(`<div class="card" data-id=${
+        data[i]._id
+      } id=aritcle${i}>
         <div class="card-header"><h5>
         <a href="https://www.nytimes.com${data[i].link}">${
         data[i].headline
       }</a></h5>
-        <button type="button" class="btn btn-dark remove-btn"> Remove</button>
-        <button type="button" class="btn btn-dark comment-btn seecomment-btn">Comment</button>
+        <button type="button" class="btn btn-light remove-btn"> Remove</button>
+        <button type="button" class="btn btn-light comment-btn">Comment</button>
         </div>
         <div class="card-body">
         <p class="card-text">${data[i].description}</p>
@@ -40,9 +42,17 @@ function getSavedArticles() {
 
 getSavedArticles();
 
+function populateNotes(data) {
+  console.log(data);
+  data.notes.map(note => {
+    $(".form-group").prepend(`<h3>${note.body}</h3>`);
+  });
+}
+
 $("#scrape-btn").on("click", function() {
+  $("#article-container").append("<div class='loader'></div>");
   $.get("/scrape").then(function() {
-    location.reload(true);
+    getArticles();
   });
 });
 
@@ -50,46 +60,43 @@ $(document).on("click", ".save-btn", function() {
   var saved = $(this)
     .parents(".card")
     .data("id");
-  console.log(saved);
-  var favorite = { id: saved };
 
-  $.post("/saved", favorite).then(function(data) {
-    console.log(data);
-  });
+  var favorite = { id: saved };
+  $.post("/saved", favorite);
 });
 
 $(document).on("click", ".remove-btn", function() {
-  var saved = $(this)
+  var id = $(this)
     .parents(".card")
     .data("id");
-  console.log(saved);
-  var favorite = { id: saved };
-
-  $.post("/remove-save", favorite).then(function(data) {
-    console.log(data);
-  });
-  location.reload(true);
+  var favorite = { id };
+  $.post("/remove-save", favorite).then(location.reload(true));
 });
 
 $(document).on("click", ".comment-btn", function() {
-  // $(".form-control").show()
-  var thisId = $(this).attr("data-id");
-  console.log(thisId);
-  $(".form-group")
-    .append(
-      "<textarea id='comment-input' name='comment' placeholder='comment on this article'></textarea>"
-    )
-    // A button to submit a new note, with the id of the article saved to it
-    .append(`<button data-id=${thisId} id='savenote'>Save Note</button>`);
-
+  $(".form-group").empty();
+  var id = $(this)
+    .parents(".card")
+    .data("id");
+  $.get("/articles/" + id).then(data => {
+    populateNotes(data);
+    $(".form-group")
+      .append(
+        "<textarea id='comment-input' name='comment' placeholder='comment on this article'></textarea><br>"
+      )
+      // A button to submit a new note, with the id of the article saved to it
+      .append(`<button data-id=${id} id='savenote'>Save Note</button>`);
+  });
   $("#comment-input").val("");
 });
-$(document).on("click", "#savenote", function() {
-  var thisId = $(this).attr("data-id");
-  console.log(thisId);
-  $.ajax({
+
+$(document).on("click", "#savenote", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  console.log(id);
+  axios({
     method: "POST",
-    url: "/articles/" + thisId,
+    url: "/articles/" + id,
     data: {
       // Value taken from note textarea
       body: $("#comment-input").val()
@@ -98,7 +105,7 @@ $(document).on("click", "#savenote", function() {
     // With that done
     .then(function(data) {
       // Log the response
-      console.log(data);
+      populateNotes(data);
       // Empty the notes section
       $("#notes").empty();
     });
@@ -106,28 +113,23 @@ $(document).on("click", "#savenote", function() {
 
 $(document).on("click", "#clear-btn", function() {
   $("#article-container").empty();
-  $("#click-card").hide();
 });
 
 $(document).on("click", "comment-btn", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
-  var thisId = $(this).attr("data-id");
+  var id = $(this).attr("data-id");
 
-  // Now make an ajax call for the Article
-  $.ajax({
+  //axios call to get the article
+  axios({
     method: "GET",
-    url: "/articles/" + thisId
+    url: "/articles/" + id
   })
     // With that done, add the note information to the page
     .then(function(data) {
       console.log("I hit this route", data);
-      // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new note body
+
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append(
@@ -136,8 +138,6 @@ $(document).on("click", "comment-btn", function() {
 
       // If there's a note in the article
       if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
       }

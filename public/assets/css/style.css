@@ -1,3 +1,17 @@
+body {
+  background-color: lightgrey;
+}
+
+.navbar-brand {
+  font-family: "Vollkorn", serif;
+  font-size: 2rem;
+}
+
+.navbar {
+  font-family: "News Cycle", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
 .article-block {
   background-color: lightskyblue;
 }
@@ -5,10 +19,17 @@
 #scrape-btn,
 #clear-btn {
   margin: 1rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .jumbotron {
-  height: 30rem;
+  min-height: 30rem;
+  min-width: 100%;
+  background-image: url("../images/app-browser-coffee-6335.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #saved-container {
@@ -29,4 +50,31 @@
 
 #click-card {
   text-align: center;
+  background-color: transparent;
+  border: transparent;
+  position: relative;
+  left: 30rem;
+  width: 40rem;
+}
+
+#instructions {
+  font-size: 2rem;
+}
+
+.card-header {
+  background-color: black;
+  font-size: 1.3rem;
+}
+
+a {
+  color: white;
+}
+
+.card {
+  margin: 2rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  font-weight: 600;
 }

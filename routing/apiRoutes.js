@@ -6,7 +6,7 @@ module.exports = function(app) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Article.findOne({ _id: req.params.id })
       // ..and populate all of the notes associated with it
-      .populate("note")
+      .populate("notes")
       .then(function(dbArticle) {
         // If we were able to successfully find an Article with the given id, send it back to the client
         res.json(dbArticle);
@@ -27,7 +27,7 @@ module.exports = function(app) {
         // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
         return db.Article.findOneAndUpdate(
           { _id: req.params.id },
-          { note: dbNote._id },
+          { $push: { notes: dbNote._id } },
           { new: true }
         );
       })
@@ -48,7 +48,6 @@ module.exports = function(app) {
     result.description = req.body.description;
     result.link = req.body.link;
 
-    console.log("we hit the route!! /route", req.body);
     db.Article.findByIdAndUpdate(req.body.id, { saved: true }, function(
       err,
       thingSaved
