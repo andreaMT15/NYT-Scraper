@@ -3,7 +3,7 @@ body {
 }
 
 .navbar-brand {
-  font-family: "Vollkorn", serif;
+  font-family: "News Cycle", serif;
   font-size: 2rem;
 }
 
@@ -11,9 +11,6 @@ body {
   font-family: "News Cycle", sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
-}
-.article-block {
-  background-color: lightskyblue;
 }
 
 #scrape-btn,
@@ -25,23 +22,15 @@ body {
 }
 
 .jumbotron {
-  min-height: 30rem;
+  max-height: 30rem;
   min-width: 100%;
   background-image: url("../images/app-browser-coffee-6335.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-#saved-container {
-  width: 48rem;
-  margin: 0.5rem;
-}
-
-.notes {
-  width: 48rem;
-  position: absolute;
-  left: 48.5rem;
-  top: 37.5rem;
+#saved-jumbotron {
+  height: 386px;
 }
 
 #comment-input {
@@ -77,4 +66,44 @@ a {
 .card-text {
   font-size: 1rem;
   font-weight: 600;
+}
+
+#comment-input {
+  margin-top: 5%;
+  min-width: 50%;
+  max-width: 100%;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #click-card {
+    left: 0;
+    top: -40%;
+  }
+  #instructions {
+    font-size: 0.9rem;
+    display: inline-block;
+    padding: 0;
+    text-align: end;
+    margin-left: 25px;
+  }
+
+  #scrape-btn,
+  #clear-btn {
+    margin: 0;
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+
+  .instruction-card {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 340px;
+    position: relative;
+    left: 40px;
+  }
+
+  .row {
+    display: block;
+  }
 }

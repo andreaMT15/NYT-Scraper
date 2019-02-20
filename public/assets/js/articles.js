@@ -23,10 +23,10 @@ getArticles();
 function getSavedArticles() {
   $.getJSON("/saved-articles", function(data) {
     for (var i = 0; i < data.length; i++) {
-      $("#saved-container").append(`<div class="card" data-id=${
+      $(".saved-articles").append(`<div class="card" data-id=${
         data[i]._id
-      } id=aritcle${i}>
-        <div class="card-header"><h5>
+      } id=article${i}>
+        <div class="card-header saved-title"><h5>
         <a href="https://www.nytimes.com${data[i].link}">${
         data[i].headline
       }</a></h5>
@@ -85,7 +85,9 @@ $(document).on("click", ".comment-btn", function() {
         "<textarea id='comment-input' name='comment' placeholder='comment on this article'></textarea><br>"
       )
       // A button to submit a new note, with the id of the article saved to it
-      .append(`<button data-id=${id} id='savenote'>Save Note</button>`);
+      .append(
+        `<button type='button' class='btn btn-dark' data-id=${id} id='savenote'>Save Note</button>`
+      );
   });
   $("#comment-input").val("");
 });
@@ -133,7 +135,9 @@ $(document).on("click", "comment-btn", function() {
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append(
-        "<button data-id='" + data._id + "' id='savenote'>Save Comment</button>"
+        "<button type ='button' class='btn btn-dark' data-id='" +
+          data._id +
+          "' id='savenote'>Save Comment</button>"
       );
 
       // If there's a note in the article
