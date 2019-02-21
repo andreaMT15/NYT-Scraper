@@ -44,6 +44,7 @@ body {
   position: relative;
   left: 30rem;
   width: 40rem;
+  display: inline-block;
 }
 
 #instructions {
