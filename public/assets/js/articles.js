@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 function getArticles() {
   $.getJSON("/articles", function(data) {
-    $("#article-container").empty();
+    // $("#article-container").empty();
     for (var i = 0; i < data.length; i++) {
       $("#article-container").append(`<div class="card" data-id=${data[i]._id}>
         <div class="card-header">
