@@ -40,7 +40,6 @@ function getSavedArticles() {
 getSavedArticles();
 
 function populateNotes(data) {
-  console.log(data);
   $(".form-group h3").remove();
   data.notes.map(note => {
     $(".form-group").prepend(`<h3>${note.body}</h3>`);
@@ -57,26 +56,18 @@ $(document).on("click", ".save-btn", function() {
   var saved = $(this)
     .parents(".card")
     .data("id");
-  console.log(saved);
   var favorite = { id: saved };
 
-  $.post("/saved", favorite).then(function(data) {
-    console.log(data);
-  });
+  $.post("/saved", favorite);
 });
 
 $(document).on("click", ".remove-btn", function() {
   var id = $(this)
     .parents(".card")
     .data("id");
-  console.log(id);
   var favorite = { id };
 
-  $.post("/remove-save", favorite).then(function(data) {
-    console.log(data);
-  });
-  //I would just remove that article on the front end using jquery instead of reloading
-  location.reload(true);
+  $.post("/remove-save", favorite).then(location.reload(true));
 });
 
 $(document).on("click", ".comment-btn", function() {
@@ -84,10 +75,8 @@ $(document).on("click", ".comment-btn", function() {
   var id = $(this)
     .parents(".card")
     .data("id");
-  console.log(id);
 
   $.get("/articles/" + id).then(data => {
-    console.log(data);
     populateNotes(data);
     $(".form-group")
       .append(
@@ -103,7 +92,6 @@ $(document).on("click", ".comment-btn", function() {
 $(document).on("click", "#savenote", function(event) {
   event.preventDefault();
   var id = $(this).attr("data-id");
-  console.log(id);
   $.ajax({
     method: "POST",
     url: "/articles/" + id,
