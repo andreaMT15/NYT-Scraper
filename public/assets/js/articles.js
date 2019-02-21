@@ -5,7 +5,6 @@ $(document).ready(function() {
 
 function getArticles() {
   $.getJSON("/articles", function(data) {
-    // $("#article-container").empty();
     for (var i = 0; i < data.length; i++) {
       $("#article-container").append(`<div class="card" data-id=${data[i]._id}>
         <div class="card-header">
@@ -18,7 +17,7 @@ function getArticles() {
     }
   });
 }
-getArticles();
+// getArticles();
 
 function getSavedArticles() {
   $.getJSON("/saved-articles", function(data) {
@@ -49,7 +48,6 @@ function populateNotes(data) {
 }
 
 $("#scrape-btn").on("click", function() {
-  $("#article-container").append("<div class='loader'></div>");
   $.get("/scrape").then(function() {
     getArticles();
   });
