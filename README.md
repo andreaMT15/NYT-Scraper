@@ -14,3 +14,5 @@ The application allows users to scrape articles from the New York Times Politics
 The app also gives users the capability to save the articles to read later and leave comments on the articles. Once the user clicks over to the saved article tab, they can then post comments on the articls by clicking the comment button. Once the user leaves a comment, the comment is stored in the database. Any exisitng comments that were posted by other users will also be displayed on the screen once the user hits the comment button. 
 
 
+<img width="1331" alt="screen shot 2019-02-21 at 2 22 35 pm" src="https://user-images.githubusercontent.com/44379703/53199270-43557380-35e4-11e9-9220-23489dda4f48.png">
+<img width="1434" alt="screen shot 2019-02-21 at 2 20 44 pm" src="https://user-images.githubusercontent.com/44379703/53199271-43557380-35e4-11e9-90e9-aa73cc58c494.png">
